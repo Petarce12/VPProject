@@ -18,6 +18,7 @@ namespace ClumsyBird
         private bool inPlayMode { get; set; }
         private bool inHighScoreMode { set; get; }
 
+        private Bird bird;
         private Image backgroundImage;
         private Image gameNameImage;
 
@@ -25,7 +26,8 @@ namespace ClumsyBird
         {
             InitializeComponent();
             InitializeImages();
-            setMainMenuMode();   
+            setMainMenuMode();
+            bird = new Bird(Width, Height);
         }
 
         private void InitializeImages()
@@ -48,7 +50,7 @@ namespace ClumsyBird
             }
             else if(inHighScoreMode)
             {
-
+                //power up speed up/down
             }
 
         }
@@ -59,6 +61,7 @@ namespace ClumsyBird
             g.DrawImageUnscaled(backgroundImage, new Point(0, 0));
             g.FillRectangle(b, new Rectangle(new Point(0, 0), new Size(Width, 10)));
             g.FillRectangle(b, new Rectangle(new Point(0, Height - 48), new Size(Width, 10)));
+            bird.Draw(g);
             b.Dispose();
         }
 
@@ -131,7 +134,52 @@ namespace ClumsyBird
         {
             disableButtons();
             setPlayMode();
+            timer1.Start();
             Invalidate(true);
+        }
+
+        private void btnPlay_MouseLeave(object sender, EventArgs e)
+        {
+            btnPlay.Font = new Font("Ravie", 30);
+        }
+
+        private void btnHighScore_MouseEnter(object sender, EventArgs e)
+        {
+            btnHighScore.Font = new Font("Ravie", 40);
+        }
+
+        private void btnHighScore_MouseLeave(object sender, EventArgs e)
+        {
+            btnHighScore.Font = new Font("Ravie", 30);
+        }
+
+        private void btnPlay_MouseEnter(object sender, EventArgs e)
+        {
+            btnPlay.Font = new Font("Ravie", 40);
+        }
+
+        private void btnExit_MouseEnter(object sender, EventArgs e)
+        {
+            btnExit.Font = new Font("Ravie", 40);
+        }
+
+        private void btnExit_MouseLeave(object sender, EventArgs e)
+        {
+            btnExit.Font = new Font("Ravie", 30);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            bird.Move(Width, Height);
+            Invalidate(true);
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (inPlayMode)
+            {
+                bird.Reset();
+            }
         }
     }
 }

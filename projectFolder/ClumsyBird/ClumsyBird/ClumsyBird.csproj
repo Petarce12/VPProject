@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bird.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cloud-example.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BirdLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BirdRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

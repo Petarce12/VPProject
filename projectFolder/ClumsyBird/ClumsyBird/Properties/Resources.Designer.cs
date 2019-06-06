@@ -63,6 +63,26 @@ namespace ClumsyBird.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BirdLeft {
+            get {
+                object obj = ResourceManager.GetObject("BirdLeft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BirdRight {
+            get {
+                object obj = ResourceManager.GetObject("BirdRight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap cloud_example {
             get {
                 object obj = ResourceManager.GetObject("cloud_example", resourceCulture);
