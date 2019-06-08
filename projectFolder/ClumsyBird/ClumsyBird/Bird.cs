@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ClumsyBird
 {
-    class Bird
+    public class Bird
     {
         public Point Point { get; set; }
         public double Angle { get; set; }
@@ -17,6 +18,8 @@ namespace ClumsyBird
         public bool isGoingRight { get; set; }
         public int Y { get; set; }
 
+        private SoundPlayer coinHitSnd;
+        
         private Image birdLeft;
         private Image birdRight;
 
@@ -27,8 +30,15 @@ namespace ClumsyBird
             Angle = 0;
             Y = Point.Y;
             InitializeImages();
+            InitialiseSounds();
             makeBirdGoRight();
         }
+
+        private void InitialiseSounds()
+        {
+            coinHitSnd = new SoundPlayer(Resources.coin_sound);
+        }
+
         private void InitializeImages()
         {
             birdLeft = Resources.BirdLeft;
@@ -73,9 +83,10 @@ namespace ClumsyBird
             {
                 makeBirdGoLeft();
                 moveBirdLeft(width, height);
+                Scene.score++;
                 return;
             }
-            if (Angle >= -Math.PI)
+            else if (Angle >= -Math.PI)
             {
                 int x, y;
                 x = Point.X + Speed;
@@ -98,9 +109,10 @@ namespace ClumsyBird
             {
                 makeBirdGoRight();
                 moveBirdRight(width, height);
+                Scene.score++;
                 return;
             }            
-            if (Angle >= -Math.PI)
+            else if (Angle >= -Math.PI)
             {
                 int x, y;
                 x = Point.X - Speed;
@@ -122,5 +134,17 @@ namespace ClumsyBird
             Y = Point.Y;
             Angle = 0;
         }
+
+        public bool isHit(Point p)
+        {
+            double num = Math.Sqrt((p.X - Point.X) * (p.X - Point.X) + (p.Y - Point.Y) * (p.Y - Point.Y));
+            if (num <= 50)
+            {
+                coinHitSnd.Play();
+                return true;
+            }
+            return false;
+        }
+
     }
 }

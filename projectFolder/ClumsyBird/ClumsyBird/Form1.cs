@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,11 +15,20 @@ namespace ClumsyBird
     public partial class Form1 : Form
     {
 
+        public static int formWidth;
+        public static int formHeight;
+        public int secondCounter;
+
         private bool startMenu { set; get; }
         private bool inPlayMode { get; set; }
         private bool inHighScoreMode { set; get; }
+        private bool isMenuSndPlaing { set; get; }
 
-        private Bird bird;
+        private Scene scene;
+
+        private SoundPlayer birdFlapSnd;
+        private SoundPlayer menuSound;
+
         private Image backgroundImage;
         private Image gameNameImage;
 
@@ -26,8 +36,18 @@ namespace ClumsyBird
         {
             InitializeComponent();
             InitializeImages();
+            InitialiseSounds();
             setMainMenuMode();
-            bird = new Bird(Width, Height);
+            formWidth = Width;
+            formHeight = Height;
+            secondCounter = 1;
+            scene = new Scene();
+        }
+
+        private void InitialiseSounds()
+        {
+            birdFlapSnd = new SoundPlayer(Resources.flap_sound);
+            menuSound = new SoundPlayer(Resources.nature_piano);
         }
 
         private void InitializeImages()
@@ -58,10 +78,14 @@ namespace ClumsyBird
         private void paintPlayMode(Graphics g)
         {
             Brush b = new SolidBrush(Color.Brown);
+            Brush brush = new SolidBrush(Color.White);
             g.DrawImageUnscaled(backgroundImage, new Point(0, 0));
             g.FillRectangle(b, new Rectangle(new Point(0, 0), new Size(Width, 10)));
             g.FillRectangle(b, new Rectangle(new Point(0, Height - 48), new Size(Width, 10)));
-            bird.Draw(g);
+            Font f = new Font("Helvetica", 50,FontStyle.Bold);
+            
+            g.DrawString(Scene.score.ToString(), f, brush, Width / 2 - 50, 150);
+            scene.Draw(g);
             b.Dispose();
         }
 
@@ -111,6 +135,7 @@ namespace ClumsyBird
             startMenu = false;
             inPlayMode = true;
             inHighScoreMode = false;
+            menuSound.Stop();
         }
 
 
@@ -119,6 +144,7 @@ namespace ClumsyBird
             startMenu = true;
             inPlayMode = false;
             inHighScoreMode = false;
+            menuSound.PlayLooping();
         }
 
         
@@ -127,6 +153,7 @@ namespace ClumsyBird
             startMenu = false;
             inPlayMode = false;
             inHighScoreMode = true;
+            menuSound.Stop();
         }
 
 
@@ -170,7 +197,14 @@ namespace ClumsyBird
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            bird.Move(Width, Height);
+            if(secondCounter % 400 == 0)
+            {
+                scene.coins.Add(new Coin());
+                secondCounter = 0;
+            }
+            secondCounter++;
+            scene.Move();
+            scene.checkHit();
             Invalidate(true);
         }
 
@@ -178,7 +212,8 @@ namespace ClumsyBird
         {
             if (inPlayMode)
             {
-                bird.Reset();
+                birdFlapSnd.Play();
+                scene.birdReset();
             }
         }
     }
