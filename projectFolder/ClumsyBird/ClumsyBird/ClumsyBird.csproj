@@ -57,6 +57,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scene.cs" />
+    <Compile Include="Spike.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +119,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\nature_piano.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Spikes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpikesLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SpikesRight.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

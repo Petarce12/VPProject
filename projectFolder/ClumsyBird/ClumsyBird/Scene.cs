@@ -11,6 +11,7 @@ namespace ClumsyBird
     {
         public Bird bird { get; set; }
         public List<Coin> coins { get; set; }
+        public List<Spike> spikes { get; set; }
 
         public static int score { get; set; }
 
@@ -19,6 +20,7 @@ namespace ClumsyBird
             score = 0;
             bird = new Bird(Form1.formWidth, Form1.formHeight);
             coins = new List<Coin>();
+            spikes = new List<Spike>();
         }
 
         public void Draw(Graphics g)
@@ -26,6 +28,8 @@ namespace ClumsyBird
             bird.Draw(g);
             foreach (Coin c in coins)
                 c.Draw(g);
+            foreach (Spike s in spikes)
+                s.Draw(g);
         }
 
         public void birdReset()
@@ -47,7 +51,7 @@ namespace ClumsyBird
 
         public void Move()
         {
-            bird.Move(Form1.formWidth, Form1.formHeight);
+            bird.Move(Form1.formWidth, Form1.formHeight, spikes);
         }
 
 

@@ -18,3 +18,13 @@ C:\Users\Lazarevski\Desktop\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\Clumsy
 C:\Users\Lazarevski\Desktop\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.csproj.CoreCompileInputs.cache
 C:\Users\Lazarevski\Desktop\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.exe
 C:\Users\Lazarevski\Desktop\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.pdb
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\bin\Debug\ClumsyBird.exe.config
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\bin\Debug\ClumsyBird.exe
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\bin\Debug\ClumsyBird.pdb
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.csprojAssemblyReference.cache
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.Form1.resources
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.Properties.Resources.resources
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.csproj.GenerateResource.cache
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.csproj.CoreCompileInputs.cache
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.exe
+F:\VizuelnoProekt\VPProject\projectFolder\ClumsyBird\ClumsyBird\obj\Debug\ClumsyBird.pdb

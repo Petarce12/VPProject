@@ -65,24 +65,25 @@ namespace ClumsyBird
                 g.DrawImageUnscaled(birdRight, Point);
             }
         }
-        public void Move(int width, int height)
+        public void Move(int width, int height, List<Spike> spikes)
         {
             if (isGoingLeft)
             {
-                moveBirdLeft(width, height);
+                moveBirdLeft(width, height, spikes);
             }
             else
             {
-                moveBirdRight(width,height);
+                moveBirdRight(width,height, spikes);
             }
         }
 
-        private void moveBirdRight(int width, int height)
+        private void moveBirdRight(int width, int height, List<Spike> spikes)
         {
             if (Point.X + 80 > width)
             {
                 makeBirdGoLeft();
-                moveBirdLeft(width, height);
+                moveBirdLeft(width, height, spikes);
+                spikes.Add(new Spike(Spike.Side.LEFT));
                 Scene.score++;
                 return;
             }
@@ -103,12 +104,13 @@ namespace ClumsyBird
             }
         }
 
-        private void moveBirdLeft(int width, int height)
+        private void moveBirdLeft(int width, int height, List<Spike> spikes)
         {
             if (Point.X < 1)
             {
                 makeBirdGoRight();
-                moveBirdRight(width, height);
+                moveBirdRight(width, height, spikes);
+                spikes.Add(new Spike(Spike.Side.RIGHT));
                 Scene.score++;
                 return;
             }            
