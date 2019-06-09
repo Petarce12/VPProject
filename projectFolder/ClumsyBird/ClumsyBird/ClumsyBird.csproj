@@ -121,9 +121,6 @@
     <None Include="Resources\nature_piano.wav" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Spikes.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\SpikesLeft.png" />
   </ItemGroup>
   <ItemGroup>

@@ -204,7 +204,8 @@ namespace ClumsyBird
             }
             secondCounter++;
             scene.Move();
-            scene.checkHit();
+            if (scene.checkHit())
+                timer1.Stop();//setMainMenuMode();//should be gameover mode
             Invalidate(true);
         }
 

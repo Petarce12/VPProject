@@ -17,10 +17,8 @@ namespace ClumsyBird
         public bool isGoingLeft { get; set; }
         public bool isGoingRight { get; set; }
         public int Y { get; set; }
-
-        private SoundPlayer coinHitSnd;
         
-        private Image birdLeft;
+        public Image birdLeft;
         private Image birdRight;
 
         public Bird(int formWidth, int formHeight)
@@ -30,15 +28,8 @@ namespace ClumsyBird
             Angle = 0;
             Y = Point.Y;
             InitializeImages();
-            InitialiseSounds();
             makeBirdGoRight();
         }
-
-        private void InitialiseSounds()
-        {
-            coinHitSnd = new SoundPlayer(Resources.coin_sound);
-        }
-
         private void InitializeImages()
         {
             birdLeft = Resources.BirdLeft;
@@ -81,10 +72,7 @@ namespace ClumsyBird
         {
             if (Point.X + 80 > width)
             {
-                makeBirdGoLeft();
-                moveBirdLeft(width, height, spikes);
-                spikes.Add(new Spike(Spike.Side.LEFT));
-                Scene.score++;
+                changeDirectionRL(width, height, spikes);
                 return;
             }
             else if (Angle >= -Math.PI)
@@ -108,10 +96,7 @@ namespace ClumsyBird
         {
             if (Point.X < 1)
             {
-                makeBirdGoRight();
-                moveBirdRight(width, height, spikes);
-                spikes.Add(new Spike(Spike.Side.RIGHT));
-                Scene.score++;
+                changeDirectionLR(width, height, spikes);
                 return;
             }            
             else if (Angle >= -Math.PI)
@@ -130,23 +115,35 @@ namespace ClumsyBird
                 Point = new Point(x, y);
             }
         }
-
+        private void changeDirectionRL(int width, int height, List<Spike> spikes)
+        {
+            makeBirdGoLeft();
+            moveBirdLeft(width, height, spikes);
+            Scene.score++;
+            spikes.Clear();
+            if (Scene.score % 5 == 0 && Spike.Count < Spike.MAXIMUM)
+                Spike.Count++;
+            for (int i = 0; i < Spike.Count; i++)
+                spikes.Add(new Spike(Spike.Side.LEFT,spikes));
+        }
+        private void changeDirectionLR(int width, int height, List<Spike> spikes)
+        {
+            makeBirdGoRight();
+            moveBirdRight(width, height, spikes);
+            Scene.score++;
+            spikes.Clear();
+            if (Scene.score % 5 == 0 && Spike.Count < Spike.MAXIMUM)
+                Spike.Count++;
+            for (int i=0; i<Spike.Count; i++)
+                spikes.Add(new Spike(Spike.Side.RIGHT,spikes));
+        }
         internal void Reset()
         {
             Y = Point.Y;
             Angle = 0;
         }
 
-        public bool isHit(Point p)
-        {
-            double num = Math.Sqrt((p.X - Point.X) * (p.X - Point.X) + (p.Y - Point.Y) * (p.Y - Point.Y));
-            if (num <= 50)
-            {
-                coinHitSnd.Play();
-                return true;
-            }
-            return false;
-        }
+        
 
     }
 }

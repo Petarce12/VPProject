@@ -37,16 +37,26 @@ namespace ClumsyBird
             bird.Reset();
         }
 
-        public void checkHit()
+        public bool checkHit()
         {
             for(int i=0; i<coins.Count; i++)
             {
-                if (bird.isHit(new Point(coins.ElementAt(i).point.X, coins.ElementAt(i).point.Y)))
+                if (coins.ElementAt(i).isHit(bird.Point))
                 {
                     coins.RemoveAt(i);
                     score++;
+                    if (score % 5 == 0 && Spike.Count < Spike.MAXIMUM)
+                        Spike.Count++;
                 }
             }
+            foreach(Spike s in spikes)
+            {
+                if (s.isHit(bird))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Move()
