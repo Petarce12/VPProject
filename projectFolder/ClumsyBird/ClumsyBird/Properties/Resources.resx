@@ -148,4 +148,16 @@
   <data name="SpikesRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SpikesRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DarkCloud" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DarkCloud.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GrayCloud" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GrayCloud.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lightning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lightning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WhiteCloud" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WhiteCloud.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

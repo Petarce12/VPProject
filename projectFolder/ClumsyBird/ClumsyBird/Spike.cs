@@ -14,7 +14,7 @@ namespace ClumsyBird
             RIGHT, //bird is going Right
             LEFT   //bird is going Left
         }
-        public static int Count = 10;
+        public static int Count = 1;
         public static readonly int MAXIMUM = 10;
         public Point Point { get; set; }
         public Side side { get; set; }

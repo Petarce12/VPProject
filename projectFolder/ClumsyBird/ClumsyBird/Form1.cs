@@ -105,11 +105,6 @@ namespace ClumsyBird
             Application.Exit();
         }
 
-        private void btnPlay_MouseHover(object sender, EventArgs e)
-        {
-            
-        }
-
         private void enableButtons()
         {
             btnPlay.Enabled = true;
@@ -200,10 +195,16 @@ namespace ClumsyBird
             if(secondCounter % 400 == 0)
             {
                 scene.coins.Add(new Coin());
+                //secondCounter = 0;
+            }
+            if (secondCounter % 1600 == 0)
+            {
+                scene.clouds.Add(new Cloud());
                 secondCounter = 0;
             }
             secondCounter++;
             scene.Move();
+            scene.removeClouds();
             if (scene.checkHit())
                 timer1.Stop();//setMainMenuMode();//should be gameover mode
             Invalidate(true);

@@ -12,6 +12,7 @@ namespace ClumsyBird
         public Bird bird { get; set; }
         public List<Coin> coins { get; set; }
         public List<Spike> spikes { get; set; }
+        public List<Cloud> clouds { get; set; }
 
         public static int score { get; set; }
 
@@ -21,6 +22,7 @@ namespace ClumsyBird
             bird = new Bird(Form1.formWidth, Form1.formHeight);
             coins = new List<Coin>();
             spikes = new List<Spike>();
+            clouds = new List<Cloud>();
         }
 
         public void Draw(Graphics g)
@@ -30,6 +32,8 @@ namespace ClumsyBird
                 c.Draw(g);
             foreach (Spike s in spikes)
                 s.Draw(g);
+            foreach (Cloud c in clouds)
+                c.Draw(g);
         }
 
         public void birdReset()
@@ -56,6 +60,13 @@ namespace ClumsyBird
                     return true;
                 }
             }
+            foreach(Cloud c in clouds)
+            {
+                if (c.isHit(bird))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -64,6 +75,13 @@ namespace ClumsyBird
             bird.Move(Form1.formWidth, Form1.formHeight, spikes);
         }
 
-
+        public void removeClouds()
+        {
+            for (int i=0; i<clouds.Count; i++)
+            {
+                if (clouds.ElementAt(i).stateCount < 0)
+                    clouds.RemoveAt(i);
+            }
+        }
     }
 }
