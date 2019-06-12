@@ -23,8 +23,10 @@ namespace ClumsyBird
         private bool inPlayMode { get; set; }
         private bool inHighScoreMode { set; get; }
         private bool isMenuSndPlaing { set; get; }
+        private bool isSoundOn { set; get; }
 
         private Scene scene;
+        public static List<Player> players { set; get; }
 
         private SoundPlayer birdFlapSnd;
         private SoundPlayer menuSound;
@@ -35,6 +37,13 @@ namespace ClumsyBird
         public Form1()
         {
             InitializeComponent();
+            players = new List<Player>();
+            newGame();
+        }
+
+        private void newGame()
+        {
+            isSoundOn = true;
             InitializeImages();
             InitialiseSounds();
             setMainMenuMode();
@@ -42,6 +51,7 @@ namespace ClumsyBird
             formHeight = Height;
             secondCounter = 1;
             scene = new Scene();
+            //enableButtons();
         }
 
         private void InitialiseSounds()
@@ -70,9 +80,30 @@ namespace ClumsyBird
             }
             else if(inHighScoreMode)
             {
-                //power up speed up/down
+                paintHighScoreMode(e.Graphics);
             }
 
+        }
+
+        private void paintHighScoreMode(Graphics g)
+        {
+            g.DrawImageUnscaled(backgroundImage, new Point(0, 0));
+            players.Sort();
+            int heigth = 150;
+            Brush b = new SolidBrush(Color.Black);
+            if(players.Count == 0)
+                g.DrawString("No info yet", new Font("Ravie", 30),b,new Point(Width/2-170,150));
+            else
+            {
+                int end = players.Count;
+                if (players.Count > 5) end = 5;
+                for(int i=0;i<end;i++)
+                {
+                    g.DrawString((i+1)+"."+players.ElementAt(i).ToString(), new Font("Ravie", 30), b, new Point(Width / 2 - 150, heigth));
+                    heigth += 100;
+                }
+            }
+            b.Dispose();
         }
 
         private void paintPlayMode(Graphics g)
@@ -97,17 +128,14 @@ namespace ClumsyBird
 
         private void btnHighScore_Click(object sender, EventArgs e)
         {
-
+            setHighScoreMode();
+            disableButtons();
+            Invalidate(true);
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void btnPlay_MouseHover(object sender, EventArgs e)
-        {
-            
         }
 
         private void enableButtons()
@@ -132,6 +160,11 @@ namespace ClumsyBird
 
         private void setPlayMode()
         {
+            disableButtons();
+            lbBackToMainMenu.Enabled = false;
+            lbBackToMainMenu.Visible = false;
+            hideSoundLabel();
+            timer1.Start();
             startMenu = false;
             inPlayMode = true;
             inHighScoreMode = false;
@@ -141,25 +174,43 @@ namespace ClumsyBird
 
         private void setMainMenuMode()
         {
+            showSoundLabel();
+            lbBackToMainMenu.Enabled = false;
+            lbBackToMainMenu.Visible = false;
             startMenu = true;
             inPlayMode = false;
             inHighScoreMode = false;
-            menuSound.PlayLooping();
+            if (isSoundOn)
+            {
+                menuSound.PlayLooping();
+            }
         }
-
         
         private void setHighScoreMode()
         {
+            hideSoundLabel();
+            lbBackToMainMenu.Enabled = true;
+            lbBackToMainMenu.Visible = true;
             startMenu = false;
             inPlayMode = false;
             inHighScoreMode = true;
             menuSound.Stop();
         }
 
+        public void showSoundLabel()
+        {
+            soundLabel.Enabled = true;
+            soundLabel.Visible = true;
+        }
+
+        public void hideSoundLabel()
+        {
+            soundLabel.Enabled = false;
+            soundLabel.Visible = false;
+        }
 
         private void btnPlayClick(object sender, EventArgs e)
         {
-            disableButtons();
             setPlayMode();
             timer1.Start();
             Invalidate(true);
@@ -200,12 +251,41 @@ namespace ClumsyBird
             if(secondCounter % 400 == 0)
             {
                 scene.coins.Add(new Coin());
+                if (scene.coins.Count > 2)
+                    scene.coins.RemoveAt(0);
+                //secondCounter = 0;
+            }
+            if (secondCounter % 1600 == 0)
+            {
+                scene.clouds.Add(new Cloud());
                 secondCounter = 0;
             }
             secondCounter++;
             scene.Move();
-            scene.checkHit();
+            scene.removeClouds();
+            checkHitAndInserScore();
             Invalidate(true);
+        }
+
+        private void checkHitAndInserScore()
+        {
+            if (scene.checkHit())
+            {
+                timer1.Stop();//setMainMenuMode();//should be gameover mode
+
+                EndGameScore obj = new EndGameScore();
+
+                if(obj.ShowDialog() == DialogResult.Yes)
+                {
+                    newGame();
+                    setPlayMode();
+                }
+                else
+                {
+                    newGame();
+                    enableButtons();
+                }
+            }
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -216,5 +296,39 @@ namespace ClumsyBird
                 scene.birdReset();
             }
         }
+
+        private void label1_MouseClick(object sender, MouseEventArgs e)
+        {
+            isSoundOn = !isSoundOn;
+            if (isSoundOn)
+            {
+                soundLabel.Text = "Sound: ON";
+                menuSound.PlayLooping();
+            }
+            else
+            {
+                soundLabel.Text = "Sound: OFF";
+                menuSound.Stop();
+            }
+        }
+
+        private void lbBackToMainMenu_MouseEnter(object sender, EventArgs e)
+        {
+            lbBackToMainMenu.Font = new Font("Ravie", 40);
+        }
+
+        private void lbBackToMainMenu_MouseLeave(object sender, EventArgs e)
+        {
+            lbBackToMainMenu.Font = new Font("Ravie", 30);
+        }
+
+        private void lbBackToMainMenu_Click(object sender, EventArgs e)
+        {
+            setMainMenuMode();
+            enableButtons();
+            Invalidate(true);
+        }
+
+
     }
 }
