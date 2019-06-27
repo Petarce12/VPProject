@@ -41,12 +41,12 @@ namespace ClumsyBird
         {
             InitializeComponent();
             players = new List<Player>();
+            isSoundOn = true;
             newGame();
         }
 
         private void newGame()
         {
-            isSoundOn = true;
             InitializeImages();
             InitialiseSounds();
             setMainMenuMode();
@@ -194,6 +194,7 @@ namespace ClumsyBird
             startMenu = true;
             inPlayMode = false;
             inHighScoreMode = false;
+
             if (isSoundOn)
             {
                 menuSound.PlayLooping();
