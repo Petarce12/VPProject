@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -135,8 +138,19 @@ namespace ClumsyBird
 
         private void btnExit_Click(object sender, EventArgs e)
         {
+            StreamWriter fi = File.CreateText("HighScore.txt");
+
+            foreach (Player p in players)
+            {
+                fi.WriteLine(p.ToString());
+            }
+
+            fi.Flush();
+            fi.Close();
             Application.Exit();
         }
+
+
 
         private void enableButtons()
         {
@@ -329,6 +343,18 @@ namespace ClumsyBird
             Invalidate(true);
         }
 
-
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (File.Exists("HighScore.txt"))
+            {
+               StreamReader fo = File.OpenText("HighScore.txt");
+               while(!fo.EndOfStream)
+               { 
+                    String s = fo.ReadLine();
+                    players.Add(new Player(s));
+                }
+                fo.Close();
+            }
+        }
     }
 }

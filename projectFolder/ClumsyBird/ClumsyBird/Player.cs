@@ -12,6 +12,14 @@ namespace ClumsyBird
         public string name { get; set; }
         public int score { get; set; }
 
+        public Player(string s)
+        {
+            string[] parts = s.Split('-');
+
+            this.name = parts[0];
+            this.score = int.Parse(parts[1]);
+        }
+
         public Player(string name, int score)
         {
             this.name = name;
@@ -20,7 +28,7 @@ namespace ClumsyBird
 
         public override string ToString()
         {
-            return string.Format("{0} - {1}", name, score);
+            return string.Format("{0}-{1}", name, score);
         }
 
         public int CompareTo(Player obj)
