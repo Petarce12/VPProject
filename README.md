@@ -13,6 +13,8 @@ Windows forms project made by Petarche Lazarevski and Kristijan Donevski
 
 2.Упатство за играње
 
+http://prntscr.com/o95cfy - Слика 1
+
 На почетниот прозорец (слика 1) при стартување на апликацијата имаме можност да започнеме нова игра (Play),
 да ja видиме листа со рекорди (Show Stats) и копче за излез од играта (Exit) при што автоматски се зачувуваат новите податоци.
 
