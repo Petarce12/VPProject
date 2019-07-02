@@ -13,7 +13,12 @@ Windows forms project made by Petarche Lazarevski and Kristijan Donevski
 
 ## 2.Упатство за играње
 
-http://prntscr.com/o95cfy - Слика 1
+
+<p align="center">
+  <img src="https://i.imgur.com/f2bCCKX.png">
+  <br>
+  Слика 1
+</p>
 
 На почетниот прозорец (слика 1) при стартување на апликацијата имаме можност да започнеме нова игра (Play),
 да ja видиме листа со рекорди (Show Stats) и копче за излез од играта (Exit) при што автоматски се зачувуваат новите податоци.
@@ -55,3 +60,13 @@ http://prntscr.com/o95cfy - Слика 1
    y = Point.Y + Speed * 3;
    x = Point.X - Speed;
   ```
+### 4.2 Ударање во пречките
+  
+  Проверката за тоа дали птицата е удрена во пречка (spike или lightning) е реализирано така што пречките, а воедно и  птицата, ги гледаме како правоаголници и само проверуваме дали некоја од пречките и птицата се преклопуваат.
+  ```csharp
+  if (birdTopLeft.X < spikeBottomRight.X && birdBottomRight.X > spikeTopLeft.X && 
+      birdTopLeft.Y < spikeBottomRight.Y && birdBottomRight.Y > spikeTopLeft.Y)
+       return true;
+  ```
+  Забелешка: Птицата може слободно да поминува низ облакот. 
+  
