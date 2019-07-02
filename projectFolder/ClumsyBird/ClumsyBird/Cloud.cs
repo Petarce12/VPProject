@@ -47,6 +47,7 @@ namespace ClumsyBird
             }
             if (stateCount >= 400 && stateCount <= 650)
             {
+                //Console.WriteLine("IN");
                 DrawLightning(g);
                 g.DrawImageUnscaled(cloudDark, Point);
             }
@@ -69,15 +70,24 @@ namespace ClumsyBird
                 }
                 g.DrawImageUnscaled(lightning, LightningPoint);
             }
+            else
+            {
+                LightningPoint = new Point();
+                
+            }
+                
         }
         public bool isHit(Bird bird)
-        {
-            Point birdBottomRight = new Point(bird.Point.X + bird.birdLeft.Width, bird.Point.Y + bird.birdLeft.Height);
-            Point birdTopLeft = new Point(bird.Point.X, bird.Point.Y);
-            Point lightningBottomRight = new Point(LightningPoint.X + lightning.Width, LightningPoint.Y + lightning.Height);
-            Point lightningTopLeft = new Point(LightningPoint.X, LightningPoint.Y);
-            if (birdTopLeft.X < lightningBottomRight.X && birdBottomRight.X > lightningTopLeft.X && birdTopLeft.Y < lightningBottomRight.Y && birdBottomRight.Y > lightningTopLeft.Y)
-                return true;
+        {   
+            if (!LightningPoint.IsEmpty)
+            {
+                Point birdBottomRight = new Point(bird.Point.X + bird.birdLeft.Width, bird.Point.Y + bird.birdLeft.Height);
+                Point birdTopLeft = new Point(bird.Point.X, bird.Point.Y);
+                Point lightningBottomRight = new Point(LightningPoint.X + lightning.Width, LightningPoint.Y + lightning.Height);
+                Point lightningTopLeft = new Point(LightningPoint.X, LightningPoint.Y);
+                if (birdTopLeft.X < lightningBottomRight.X && birdBottomRight.X > lightningTopLeft.X && birdTopLeft.Y < lightningBottomRight.Y && birdBottomRight.Y > lightningTopLeft.Y)
+                    return true;
+            }
             return false;
         }
     }

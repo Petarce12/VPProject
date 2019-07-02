@@ -357,5 +357,10 @@ namespace ClumsyBird
                 fo.Close();
             }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            btnExit_Click(sender, e);
+        }
     }
 }
